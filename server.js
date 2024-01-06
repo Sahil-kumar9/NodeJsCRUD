@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const mongoose = require("mongoose");
 const Product = require("./models/productsSchema");
+require("dotenv");
+const MONGO_URL = process.env.MONGO_URL;
 
 app.use(express.json());
 
@@ -67,7 +69,7 @@ app.delete("/api/v1/products/:id",async(req,res)=>{
         res.status(500).json({message:error.message});
     }
 })
-mongoose.connect("mongodb+srv://root:root@nodejscrud.uu6jiwi.mongodb.net/NodeJsCrud?retryWrites=true&w=majority")
+mongoose.connect(MONGO_URL)
 .then(()=>{
     console.log("DataBase Connected SuccessFully");
     app.listen(3000,()=>{
